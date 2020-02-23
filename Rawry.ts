@@ -18,7 +18,7 @@ export class Rawry {
         this.client = new tmi.client(opts);
     }
 
-    connect() {
+    private connect() {
         this.client.on('message', onMessage);
         this.client.on('connected', onConnect);
 
