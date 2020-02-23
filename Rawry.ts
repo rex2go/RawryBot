@@ -1,6 +1,6 @@
 import * as tmi from "tmi.js";
 import {onMessage} from "./Handler/MessageHandler";
-import {onConnect} from "./Handler/ConnectHandler";
+import {onConnect} from "./Handler/ConnectionHandler";
 import {CommandManager} from "./Manager/CommandManager";
 import {query} from "./Util/Database";
 import * as app from "./App";
@@ -9,7 +9,7 @@ import {UserManager} from "./Manager/UserManager";
 export class Rawry {
     client: tmi;
     streamerId: number;
-    opts;
+    opts: any;
     commandManager: CommandManager;
     userManager: UserManager;
 

@@ -1,5 +1,5 @@
-import { User } from "../Entity/User";
-import { Rawry } from "../Rawry";
+import {User} from "../Entity/User";
+import {Rawry} from "../Rawry";
 
 export abstract class Command {
     command: string;

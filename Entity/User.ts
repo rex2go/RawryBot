@@ -4,9 +4,9 @@ export class User {
     money: number;
     messageCount: number;
     rank: Rank;
-    chatUser;
+    chatUser: any;
 
-    constructor(id: number, money: number, messageCount: number, chatUser) {
+    constructor(id: number, money: number, messageCount: number, chatUser: any) {
         this.id = id;
         this.username = chatUser["username"];
         this.money = money;

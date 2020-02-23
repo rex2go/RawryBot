@@ -1,4 +1,4 @@
-import { Rawry } from "./Rawry";
+import {Rawry} from "./Rawry";
 import * as fs from "file-system";
 import * as mysql from "mysql";
 

@@ -1,7 +1,7 @@
-import { Command } from "../Command/Command";
-import { TogoCommand } from "../Command/TogoCommand";
-import { Rawry } from "../Rawry";
-import { User } from "../Entity/User";
+import {Command} from "../Command/Command";
+import {TogoCommand} from "../Command/TogoCommand";
+import {Rawry} from "../Rawry";
+import {User} from "../Entity/User";
 
 export class CommandManager {
     private commands: Command[] = [];
@@ -21,13 +21,13 @@ export class CommandManager {
         for (let i = 0; i < this.commands.length; i++) {
             let cmd: Command = this.commands[i];
 
-            if(cmd.command == command) {
+            if (cmd.command == command) {
                 cmd.execute(user);
             } else {
                 for (let j = 0; j < cmd.aliases.length; j++) {
                     let alias: string = cmd.aliases[j];
 
-                    if(alias == command) {
+                    if (alias == command) {
                         cmd.execute(user);
                     }
                 }
