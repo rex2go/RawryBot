@@ -1,5 +1,5 @@
 import {Command} from "../Command/Command";
-import {TogoCommand} from "../Command/TogoCommand";
+import {RawrBucksCommand} from "../Command/RawrBucksCommand";
 import {Rawry} from "../Rawry";
 import {User} from "../Entity/User";
 
@@ -14,7 +14,7 @@ export class CommandManager {
     }
 
     private initCommands() {
-        this.commands.push(new TogoCommand(this.rawry));
+        this.commands.push(new RawrBucksCommand(this.rawry));
     }
 
     executeCommand(command: string, user: User) {
