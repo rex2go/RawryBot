@@ -4,8 +4,8 @@ import { Rawry } from "../Rawry";
 import { User } from "../Entity/User";
 
 export class CommandManager {
-    commands: Command[] = [];
-    rawry: Rawry;
+    private commands: Command[] = [];
+    private readonly rawry: Rawry;
 
     constructor(rawry: Rawry) {
         this.rawry = rawry;
