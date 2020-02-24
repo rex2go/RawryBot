@@ -1,5 +1,5 @@
 import {rawry} from "../App";
-import {User} from "../Entity/User";
+import {User} from "../User/User";
 
 export async function onMessage(channel, chatUser, message, self) {
     if (self) {
@@ -7,9 +7,7 @@ export async function onMessage(channel, chatUser, message, self) {
     }
 
     if (message.startsWith("!")) {
-        // TODO Args, etc.
-
-        let user: User = await rawry.userManager.getUser(chatUser);
-        rawry.commandManager.executeCommand(message.substring(1), user);
+        let user: User = await rawry.userService.getUser(chatUser);
+        rawry.commandService.executeCommand(message.substring(1), message.split(" ").shift(), user);
     }
 };

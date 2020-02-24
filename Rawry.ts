@@ -1,17 +1,17 @@
 import * as tmi from "tmi.js";
 import {onMessage} from "./Handler/MessageHandler";
 import {onConnect} from "./Handler/ConnectionHandler";
-import {CommandManager} from "./Manager/CommandManager";
+import {CommandService} from "./Command/CommandService";
+import {UserService} from "./User/UserService";
 import {query} from "./Util/Database";
 import * as app from "./App";
-import {UserManager} from "./Manager/UserManager";
 
 export class Rawry {
     client: tmi;
     streamerId: number;
     opts: any;
-    commandManager: CommandManager;
-    userManager: UserManager;
+    commandService: CommandService;
+    userService: UserService;
 
     constructor(opts) {
         this.opts = opts;
@@ -26,8 +26,8 @@ export class Rawry {
     }
 
     async setup() {
-        this.commandManager = new CommandManager(app.rawry);
-        this.userManager = new UserManager(app.rawry);
+        this.commandService = new CommandService(app.rawry);
+        this.userService = new UserService(app.rawry);
 
         await this.setupDatabase();
         this.connect();

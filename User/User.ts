@@ -1,3 +1,5 @@
+import {Rank} from "./Rank";
+
 export class User {
     id: number;
     username: string;
@@ -27,11 +29,4 @@ export class User {
             this.rank = Rank.USER;
         }
     }
-}
-
-enum Rank {
-    USER = 0,
-    SUBSCRIBER = 1,
-    MODERATOR = 2,
-    STREAMER = 3
 }

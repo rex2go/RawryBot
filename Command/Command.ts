@@ -1,4 +1,4 @@
-import {User} from "../Entity/User";
+import {User} from "../User/User";
 import {Rawry} from "../Rawry";
 
 export abstract class Command {
@@ -12,5 +12,5 @@ export abstract class Command {
         this.rawry = rawry;
     }
 
-    abstract execute(user: User);
+    abstract execute(user: User, args: string[]);
 }

@@ -1,8 +1,8 @@
 import {Rawry} from "../Rawry";
-import {User} from "../Entity/User";
+import {User} from "./User";
 import {query} from "../Util/Database";
 
-export class UserManager {
+export class UserService {
     private users: User[] = [];
     private readonly rawry: Rawry;
 
