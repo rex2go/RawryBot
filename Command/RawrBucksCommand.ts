@@ -9,6 +9,6 @@ export class RawrBucksCommand extends Command {
     }
 
     execute(user: User, args: string[]) {
-        this.rawry.sendMessage(`@${user.username} hat ${user.money} ${user.money == 1 ? "RawrBuck" : "RawrBucks"}`);
+        this.rawry.sendMessage(`@${user.getUsername()} hat ${user.getMoney()} ${user.getMoney() == 1 ? "RawrBuck" : "RawrBucks"}`);
     }
 }
