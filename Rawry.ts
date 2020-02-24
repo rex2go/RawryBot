@@ -5,6 +5,7 @@ import {CommandService} from "./Command/CommandService";
 import {UserService} from "./User/UserService";
 import {query} from "./Util/Database";
 import * as app from "./App";
+import {ModuleService} from "./Module/ModuleService";
 
 export class Rawry {
     client: tmi;
@@ -12,6 +13,7 @@ export class Rawry {
     opts: any;
     commandService: CommandService;
     userService: UserService;
+    moduleService: ModuleService;
 
     constructor(opts) {
         this.opts = opts;
@@ -28,6 +30,7 @@ export class Rawry {
     async setup() {
         this.commandService = new CommandService(app.rawry);
         this.userService = new UserService(app.rawry);
+        this.moduleService = new ModuleService(app.rawry);
 
         await this.setupDatabase();
         this.connect();
