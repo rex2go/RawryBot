@@ -10,7 +10,7 @@ export class TopCommand extends Command {
     }
 
     execute(user: User, args: string[]) {
-        let topArr: any = query("SELECT username, money FROM rawry.user ORDER BY money DESC LIMIT 5");
+        let topArr: any = query("SELECT username, money FROM rawry.user WHERE streamer_id = ? ORDER BY money DESC LIMIT 5", [this.rawry.streamerId]);
 
         topArr.forEach((top, index) => {
             this.rawry.sendMessage(`#${index+1} ${user.username}: ${user.money} ${user.money == 1 ? "RawrBuck" : "RawrBucks"}`);
