@@ -36,4 +36,8 @@ export class CommandService {
             }
         }
     }
+
+    getCommands(): Command[] {
+        return this.commands;
+    }
 }
