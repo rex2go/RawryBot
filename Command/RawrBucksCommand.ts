@@ -1,5 +1,5 @@
 import { Command } from "./Command";
-import { User } from "../Entity/User";
+import { User } from "../User/User";
 import { Rawry } from "../Rawry";
 
 export class RawrBucksCommand extends Command {
@@ -8,7 +8,7 @@ export class RawrBucksCommand extends Command {
         super("togo", ["coins", "rawrbucks"], rawry);
     }
 
-    execute(user: User) {
-        this.rawry.sendMessage(`@${user.username} hat ${user.money} ${user.money == 1 ? "RawrBuck" : "RawrBucks"}`);
+    execute(user: User, args: string[]) {
+        this.rawry.sendMessage(`@${user.getUsername()} hat ${user.getMoney()} ${user.getMoney() == 1 ? "RawrBuck" : "RawrBucks"}`);
     }
 }
