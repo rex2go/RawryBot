@@ -8,7 +8,7 @@ export class RawrBucksCommand extends Command {
         super("togo", ["coins", "rawrbucks"], rawry);
     }
 
-    execute(user: User, args: string[]) {
+    async execute(user: User, args: string[]) {
         this.rawry.sendMessage(`@${user.getUsername()} hat ${user.getMoney()} ${user.getMoney() == 1 ? "RawrBuck" : "RawrBucks"}`);
     }
 }

@@ -6,6 +6,7 @@ import {UserService} from "./User/UserService";
 import {query} from "./Util/Database";
 import * as app from "./App";
 import {ModuleService} from "./Module/ModuleService";
+import {ExitHandler} from "./Handler/ExitHandler";
 
 export class Rawry {
     client: tmi;
@@ -18,6 +19,13 @@ export class Rawry {
     constructor(opts) {
         this.opts = opts;
         this.client = new tmi.client(opts);
+
+        new ExitHandler(this);
+    }
+
+    async disable() {
+        await this.userService.saveAllUsers();
+        console.log("Saved users. Quitting.")
     }
 
     private connect() {

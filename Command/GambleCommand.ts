@@ -1,35 +1,40 @@
-import { Command } from "./Command";
-import { User } from "../User/User";
-import { Rawry } from "../Rawry";
-import {query} from "../Util/Database";
+import {Command} from "./Command";
+import {User} from "../User/User";
+import {Rawry} from "../Rawry";
+import {moneyString} from "../Util/Util";
 
-export class TopCommand extends Command {
+export class GambleCommand extends Command {
 
     constructor(rawry: Rawry) {
         super("gamble", [], rawry);
     }
 
-    execute(user: User, args: string[]) {
-        if(args.length < 1) {
+    async execute(user: User, args: string[]) {
+        if (args.length < 1) {
             this.rawry.sendMessage(`@${user.getUsername()} !gamble <Einsatz>`);
             return;
         }
 
         try {
-            let einsatz = parseInt(args[0]);
+            const stake = parseInt(args[0]);
 
-            if(user.getMoney() < einsatz) {
+            if(stake == undefined || isNaN(stake) || stake < 0) {
+                throw "Error";
+            }
+
+            if (user.getMoney() < stake) {
                 this.rawry.sendMessage(`@${user.getUsername()}, du hast nicht genügend RawrBucks.`);
                 return;
             }
 
-            if(Math.random() < 0.5) {
-                user.setMoney(user.getMoney() + einsatz);
-                this.rawry.sendMessage(`@${user.getUsername()} hat soeben ${einsatz*2} ${einsatz*2 == 1 ? "RawrBuck" : "RawrBucks"} gewonnen!`);
+            if (Math.random() < 0.5) {
+                user.setMoney(user.getMoney() + stake);
+                this.rawry.sendMessage(`@${user.getUsername()} hat soeben ${moneyString(stake * 2)} gewonnen!`);
             } else {
-                user.setMoney(user.getMoney() - einsatz);
-                this.rawry.sendMessage(`@${user.getUsername()} hat soeben ${einsatz} ${einsatz == 1 ? "RawrBuck" : "RawrBucks"} verloren!`);
+                user.setMoney(user.getMoney() - stake);
+                this.rawry.sendMessage(`@${user.getUsername()} hat soeben ${moneyString(stake)} verloren!`);
             }
+
         } catch (e) {
             this.rawry.sendMessage(`@${user.getUsername()}, ungültiger Einsatz.`);
         }

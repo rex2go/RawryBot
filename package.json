@@ -9,9 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^15.6.1",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
     "mysql": "^2.18.1",
-    "tmi.js": "^1.5.0"
+    "tmi.js": "^1.8.3"
   }
 }

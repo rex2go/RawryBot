@@ -2,13 +2,18 @@ import {Rank} from "./Rank";
 import {Rawry} from "../Rawry";
 
 export class User {
+
     private readonly id: number;
     private readonly username: string;
+
     private money: number;
     private messageCount: number;
     private rank: Rank;
     protected chatUser: any;
     protected rawry: Rawry;
+
+    private lastMessageTime: number;
+    private messageStreak: number = 0;
 
     constructor(id: number, money: number, messageCount: number, chatUser: any, rawry: Rawry) {
         this.id = id;
@@ -33,6 +38,33 @@ export class User {
         }
     }
 
+    checkReward() {
+        if(this.messageCount % 1000 == 0) {
+            this.rawry.sendMessage(`@${this.username}, das ist deine ${this.messageCount}. Nachricht. Du hast 50 RawrBucks erhalten.`);
+            this.setMoney(this.getMoney() + 50);
+        }
+
+        const currentTime: number = new Date().getTime();
+
+        if(!this.lastMessageTime) {
+            this.lastMessageTime = currentTime;
+            return;
+        }
+
+        if(currentTime - this.lastMessageTime > 1000 * 60 * 5) {
+            if(this.messageStreak >= 5 && this.messageStreak < 11) {
+                this.setMoney(this.getMoney() + 2);
+            } else if(this.messageStreak >= 11) {
+                this.setMoney(this.getMoney() + 3);
+            } else {
+                this.setMoney(this.getMoney() + 1);
+            }
+
+            this.lastMessageTime = currentTime;
+            this.messageStreak++;
+        }
+    }
+
     getId(): number {
         return this.id;
     }
@@ -47,7 +79,6 @@ export class User {
 
     setMoney(money: number) {
         this.money = money;
-        this.rawry.userService.saveUser(this);
     }
 
     getMessageCount(): number {
@@ -56,6 +87,9 @@ export class User {
 
     setMessageCount(messageCount: number) {
         this.messageCount = messageCount;
-        this.rawry.userService.saveUser(this);
+    }
+
+    async flush() {
+        await this.rawry.userService.saveUser(this);
     }
 }

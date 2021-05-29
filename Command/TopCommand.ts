@@ -1,7 +1,8 @@
-import { Command } from "./Command";
-import { User } from "../User/User";
-import { Rawry } from "../Rawry";
+import {Command} from "./Command";
+import {User} from "../User/User";
+import {Rawry} from "../Rawry";
 import {query} from "../Util/Database";
+import {moneyString} from "../Util/Util";
 
 export class TopCommand extends Command {
 
@@ -9,11 +10,14 @@ export class TopCommand extends Command {
         super("top", [], rawry);
     }
 
-    execute(user: User, args: string[]) {
-        let topArr: any = query("SELECT username, money FROM rawry.user WHERE streamer_id = ? ORDER BY money DESC LIMIT 5", [this.rawry.streamerId]);
+    async execute(user: User, args: string[]) {
+        const topArr: any = await query(
+            "SELECT username, money FROM rawry.user WHERE streamer_id = ? ORDER BY money DESC LIMIT 5",
+            [this.rawry.streamerId]
+        );
 
         topArr.forEach((top, index) => {
-            this.rawry.sendMessage(`#${index+1} ${user.getUsername()}: ${user.getMoney()} ${user.getMoney() == 1 ? "RawrBuck" : "RawrBucks"}`);
+            this.rawry.sendMessage(`#${index + 1} ${user.getUsername()}: ${moneyString(user.getMoney())}`);
         });
     }
 }

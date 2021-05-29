@@ -2,6 +2,7 @@ import {User} from "../User/User";
 import {Rawry} from "../Rawry";
 
 export abstract class Command {
+
     command: string;
     aliases: string[];
     rawry: Rawry;

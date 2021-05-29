@@ -6,8 +6,19 @@ export async function onMessage(channel, chatUser, message, self) {
         return;
     }
 
+    const user: User = await rawry.userService.getUser(chatUser, true);
+
+    user.setMessageCount(user.getMessageCount() + 1);
+    user.checkReward();
+
+    await user.flush();
+
     if (message.startsWith("!")) {
-        let user: User = await rawry.userService.getUser(chatUser);
-        rawry.commandService.executeCommand(message.substring(1), message.split(" ").shift(), user);
+        const args = message.split(" ");
+        const command = args[0].substring(1);
+        args.shift();
+
+        await rawry.commandService.executeCommand(command, args, user);
     }
-};
+
+}
