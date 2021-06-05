@@ -2,7 +2,7 @@ import {Rawry} from "../Rawry";
 
 export class WebService {
 
-    private allUsernames = [];
+    private allUsernames = ['rawryybot'];
 
     constructor(rawry: Rawry) {
         const express = require('express');
@@ -18,7 +18,10 @@ export class WebService {
         app.use(express.static('./Web/Static'));
 
         app.get('/credits', (req, res) => {
-            res.render('credits.html', { names: this.allUsernames.join(',') });
+            res.render('credits.html', {
+                names: this.allUsernames.join(','),
+                director: rawry.client.getChannels()[0].substring(1)
+            });
         })
 
         app.listen(port, () => {
