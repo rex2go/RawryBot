@@ -7,18 +7,25 @@ import {query} from "./Util/Database";
 import * as app from "./App";
 import {ModuleService} from "./Module/ModuleService";
 import {ExitHandler} from "./Handler/ExitHandler";
+import {WebService} from "./Web/WebService";
+import {Spotify} from "./Util/Spotify";
+import {Client} from "tmi.js";
 
 export class Rawry {
-    client: tmi;
+    client: Client;
     streamerId: number;
     opts: any;
     commandService: CommandService;
     userService: UserService;
     moduleService: ModuleService;
+    creditService: WebService;
+    spotify: Spotify;
+    onlineTime: number;
 
     constructor(opts) {
         this.opts = opts;
         this.client = new tmi.client(opts);
+        this.onlineTime = new Date().getTime();
 
         new ExitHandler(this);
     }
@@ -28,20 +35,26 @@ export class Rawry {
         console.log("Saved users. Quitting.")
     }
 
-    private connect() {
+    async connect() {
         this.client.on('message', onMessage);
         this.client.on('connected', onConnect);
 
-        this.client.connect();
+        await this.client.connect();
     }
 
     async setup() {
         this.commandService = new CommandService(app.rawry);
         this.userService = new UserService(app.rawry);
         this.moduleService = new ModuleService(app.rawry);
+        this.creditService = new WebService(app.rawry);
 
         await this.setupDatabase();
-        this.connect();
+        await this.connect();
+    }
+
+    setupSpotify(spotifyCredentials) {
+        this.spotify = new Spotify(spotifyCredentials);
+        this.spotify.connect(spotifyCredentials.spotifyRefreshToken)
     }
 
     private async setupDatabase() {
@@ -61,6 +74,6 @@ export class Rawry {
     }
 
     sendMessage(msg: string) {
-        this.client.say(this.client.channels[0], msg);
+        this.client.say(this.client.getChannels()[0], msg);
     };
 }

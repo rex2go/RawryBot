@@ -10,9 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^15.6.1",
+    "@types/spotify-web-api-node": "^5.0.2",
+    "@types/tmi.js": "^1.7.1",
+    "express": "^4.17.1",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
     "mysql": "^2.18.1",
+    "nunjucks": "^3.2.3",
+    "spotify-web-api-node": "^5.0.2",
     "tmi.js": "^1.8.3"
   }
 }

@@ -21,3 +21,4 @@ export const pool = mysql.createPool({
 
 export const rawry = new Rawry(opts);
 rawry.setup();
+rawry.setupSpotify(credentials.spotify);

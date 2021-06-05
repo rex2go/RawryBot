@@ -4,6 +4,10 @@ import {Rawry} from "../Rawry";
 import {User} from "../User/User";
 import {TopCommand} from "./TopCommand";
 import {GambleCommand} from "./GambleCommand";
+import {SongCommand} from "./SongCommand";
+import {VolumeCommand} from "./VolumeCommand";
+import {OnlineCommand} from "./OnlineCommand";
+import {SkipCommand} from "./SkipCommand";
 
 export class CommandService {
 
@@ -20,6 +24,10 @@ export class CommandService {
         this.commands.push(new RawrBucksCommand(this.rawry));
         this.commands.push(new TopCommand(this.rawry));
         this.commands.push(new GambleCommand(this.rawry));
+        this.commands.push(new SongCommand(this.rawry));
+        this.commands.push(new VolumeCommand(this.rawry));
+        this.commands.push(new OnlineCommand(this.rawry));
+        this.commands.push(new SkipCommand(this.rawry));
     }
 
     async executeCommand(command: string, args: string[], user: User) {

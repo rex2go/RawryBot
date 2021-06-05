@@ -2,6 +2,8 @@ import {rawry} from "../App";
 import {User} from "../User/User";
 
 export async function onMessage(channel, chatUser, message, self) {
+    rawry.creditService.checkUsername(chatUser.username);
+
     if (self) {
         return;
     }

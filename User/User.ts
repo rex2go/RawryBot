@@ -92,4 +92,8 @@ export class User {
     async flush() {
         await this.rawry.userService.saveUser(this);
     }
+
+    public hasPermission(rank: Rank): boolean {
+        return this.rank >= rank;
+    }
 }

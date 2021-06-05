@@ -1,0 +1,84 @@
+<html lang="de">
+<head>
+    <title>credits</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+        }
+
+        span {
+            font-family: Impact,serif;
+            text-align: center;
+            transition: opacity 2s;
+        }
+
+        .title {
+            text-transform: uppercase;
+            font-size: 48px;
+        }
+
+        .name {
+            font-size: 108px;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .logo {
+            position: absolute;
+            width: 300px;
+            transition-delay: 2s;
+            transition: opacity 2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <span class="title">Directed by</span>
+        <span class="name">rex2go</span>
+        <img class="logo hidden" src="/logo.png">
+    </div>
+
+    <script>
+        const logo = document.getElementsByClassName('logo')[0];
+        const title = document.getElementsByClassName('title')[0];
+        const name = document.getElementsByClassName('name')[0];
+        const names = '{{ names }}'.split(',');
+        let index = 0;
+        let interval = -1;
+
+        interval = setInterval(() => {
+            if(index >= names.length) {
+                title.classList.add('hidden');
+                name.classList.add('hidden');
+
+                setTimeout(() => {
+                    logo.classList.remove('hidden');
+                }, 2000);
+
+                clearInterval(interval);
+                return;
+            }
+
+            title.innerHTML = 'featuring';
+            name.innerHTML = names[index++];
+        }, 5000);
+    </script>
+</body>
+</html>
